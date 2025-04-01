@@ -6,6 +6,7 @@
 
 // Former goog.module ID: Blockly.common
 
+import {AnyDuringMigration} from './any_aliases.js';
 import type {Block} from './block.js';
 import {ISelectable} from './blockly.js';
 import {BlockDefinition, Blocks} from './blocks.js';
@@ -15,49 +16,7 @@ import * as eventUtils from './events/utils.js';
 import type {Workspace} from './workspace.js';
 import type {WorkspaceSvg} from './workspace_svg.js';
 
-/** Database of all workspaces. */
-const WorkspaceDB_ = Object.create(null);
-
-/**
- * Find the workspace with the specified ID.
- *
- * @param id ID of workspace to find.
- * @returns The sought after workspace or null if not found.
- */
-export function getWorkspaceById(id: string): Workspace | null {
-  return WorkspaceDB_[id] || null;
-}
-
-/**
- * Find all workspaces.
- *
- * @returns Array of workspaces.
- */
-export function getAllWorkspaces(): Workspace[] {
-  const workspaces = [];
-  for (const workspaceId in WorkspaceDB_) {
-    workspaces.push(WorkspaceDB_[workspaceId]);
-  }
-  return workspaces;
-}
-
-/**
- * Register a workspace in the workspace db.
- *
- * @param workspace
- */
-export function registerWorkspace(workspace: Workspace) {
-  WorkspaceDB_[workspace.id] = workspace;
-}
-
-/**
- * Unregister a workspace from the workspace db.
- *
- * @param workspace
- */
-export function unregisterWorkpace(workspace: Workspace) {
-  delete WorkspaceDB_[workspace.id];
-}
+export {getWorkspaceById, getAllWorkspaces, registerWorkspace, unregisterWorkpace} from './workspaces';
 
 /**
  * The main workspace most recently used.
@@ -273,7 +232,7 @@ export function createBlockDefinitionsFromJsonArray(
     if (!type) {
       console.warn(
         `Block definition #${i} in JSON array is missing a type attribute. ` +
-          'Skipping.',
+        'Skipping.',
       );
       continue;
     }

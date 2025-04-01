@@ -6,6 +6,7 @@
 
 // Former goog.module ID: Blockly.serialization.blocks
 
+import type {AnyDuringMigration} from '../any_aliases';
 import type {Block} from '../block.js';
 import type {BlockSvg} from '../block_svg.js';
 import type {Connection} from '../connection.js';
@@ -21,7 +22,7 @@ import * as utilsXml from '../utils/xml.js';
 import {VariableModel} from '../variable_model.js';
 import * as Variables from '../variables.js';
 import type {Workspace} from '../workspace.js';
-import * as Xml from '../xml.js';
+import {domToText} from '../domToText';
 import {
   BadConnectionCheck,
   MissingBlockType,
@@ -216,7 +217,7 @@ function saveExtraState(
   } else if (block.mutationToDom) {
     const extraState = block.mutationToDom();
     if (extraState !== null) {
-      state['extraState'] = Xml.domToText(extraState).replace(
+      state['extraState'] = domToText(extraState).replace(
         ' xmlns="https://developers.google.com/blockly/xml"',
         '',
       );
@@ -807,7 +808,7 @@ export class BlockSerializer implements ISerializer {
   save(
     workspace: Workspace,
   ): {languageVersion: number; blocks: State[]} | null {
-    const blockStates = [];
+    const blockStates: State[] = [];
     for (const block of workspace.getTopBlocks(false)) {
       const state = saveBlock(block, {
         addCoordinates: true,

@@ -26,7 +26,7 @@ import {Rect} from './utils/rect.js';
 import * as svgMath from './utils/svg_math.js';
 import * as WidgetDiv from './widgetdiv.js';
 import type {WorkspaceSvg} from './workspace_svg.js';
-import * as Xml from './xml.js';
+import {domToBlockInternal} from './domToBlockInternal';
 
 /**
  * Which block is the context menu attached to?
@@ -241,7 +241,7 @@ export function callbackFactory(
     let newBlock: BlockSvg;
     try {
       if (state instanceof Element) {
-        newBlock = Xml.domToBlockInternal(state, block.workspace!) as BlockSvg;
+        newBlock = domToBlockInternal(state, block.workspace!) as BlockSvg;
       } else {
         newBlock = serializationBlocks.appendInternal(
           state,

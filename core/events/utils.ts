@@ -7,7 +7,7 @@
 // Former goog.module ID: Blockly.Events.utils
 
 import type {Block} from '../block.js';
-import * as common from '../common.js';
+import {getWorkspaceById} from '../workspaces';
 import * as registry from '../registry.js';
 import * as deprecation from '../utils/deprecation.js';
 import * as idGenerator from '../utils/idgenerator.js';
@@ -128,7 +128,7 @@ function fireNow() {
   FIRE_QUEUE.length = 0;
   for (const event of queue) {
     if (!event.workspaceId) continue;
-    common.getWorkspaceById(event.workspaceId)?.fireChangeListener(event);
+    getWorkspaceById(event.workspaceId)?.fireChangeListener(event);
   }
 }
 
@@ -423,7 +423,7 @@ export function disableOrphans(event: Abstract) {
     if (!blockEvent.workspaceId) {
       return;
     }
-    const eventWorkspace = common.getWorkspaceById(
+    const eventWorkspace = getWorkspaceById(
       blockEvent.workspaceId,
     ) as WorkspaceSvg;
     if (!blockEvent.blockId) {

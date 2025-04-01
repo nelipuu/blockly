@@ -12,9 +12,12 @@ import {MutatorIcon} from './icons/mutator_icon.js';
 import * as registry from './icons/registry.js';
 import {WarningIcon} from './icons/warning_icon.js';
 
+export type {
+  CommentState
+}
+
 export {
   CommentIcon,
-  CommentState,
   exceptions,
   Icon,
   IconType,

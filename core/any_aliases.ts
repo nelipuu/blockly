@@ -5,4 +5,4 @@
  */
 
 // eslint-disable-next-line
-type AnyDuringMigration = any;
+export type AnyDuringMigration = any;

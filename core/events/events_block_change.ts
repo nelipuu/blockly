@@ -19,7 +19,7 @@ import {hasBubble} from '../interfaces/i_has_bubble.js';
 import * as registry from '../registry.js';
 import * as utilsXml from '../utils/xml.js';
 import {Workspace} from '../workspace.js';
-import * as Xml from '../xml.js';
+import {domToText} from '../domToText';
 import {BlockBase, BlockBaseJson} from './events_block_base.js';
 import {EventType} from './type.js';
 import * as eventUtils from './utils.js';
@@ -86,7 +86,7 @@ export class BlockChange extends BlockBase {
     if (!this.element) {
       throw new Error(
         'The changed element is undefined. Either pass an ' +
-          'element to the constructor, or call fromJson',
+        'element to the constructor, or call fromJson',
       );
     }
     json['element'] = this.element;
@@ -140,7 +140,7 @@ export class BlockChange extends BlockBase {
     if (this.element !== 'disabled') {
       throw new Error(
         'Cannot set the disabled reason for a BlockChange event if the ' +
-          'element is not "disabled".',
+        'element is not "disabled".',
       );
     }
     this.disabledReason = disabledReason;
@@ -165,14 +165,14 @@ export class BlockChange extends BlockBase {
     if (!this.blockId) {
       throw new Error(
         'The block ID is undefined. Either pass a block to ' +
-          'the constructor, or call fromJson',
+        'the constructor, or call fromJson',
       );
     }
     const block = workspace.getBlockById(this.blockId);
     if (!block) {
       throw new Error(
         'The associated block is undefined. Either pass a ' +
-          'block to the constructor, or call fromJson',
+        'block to the constructor, or call fromJson',
       );
     }
     // Assume the block is rendered so that then we can check.
@@ -242,7 +242,7 @@ export class BlockChange extends BlockBase {
       return state ? JSON.stringify(state) : '';
     } else if (block.mutationToDom) {
       const state = block.mutationToDom();
-      return state ? Xml.domToText(state) : '';
+      return state ? domToText(state) : '';
     }
     return '';
   }

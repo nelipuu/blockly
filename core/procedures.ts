@@ -46,6 +46,7 @@ import * as utilsXml from './utils/xml.js';
 import * as Variables from './variables.js';
 import type {Workspace} from './workspace.js';
 import type {WorkspaceSvg} from './workspace_svg.js';
+import {AnyDuringMigration} from './any_aliases.js';
 
 /**
  * String for use in the "custom" attribute of a category in toolbox XML.
@@ -239,7 +240,7 @@ export function rename(this: Field, name: string): string {
  * @returns Array of XML block elements.
  */
 export function flyoutCategory(workspace: WorkspaceSvg): Element[] {
-  const xmlList = [];
+  const xmlList: Element[] = [];
   if (Blocks['procedures_defnoreturn']) {
     // <block type="procedures_defnoreturn" gap="16">
     //     <field name="NAME">do something</field>
@@ -330,9 +331,9 @@ export function flyoutCategory(workspace: WorkspaceSvg): Element[] {
  *     is what is being updated.
  */
 function updateMutatorFlyout(workspace: WorkspaceSvg) {
-  const usedNames = [];
+  const usedNames: AnyDuringMigration[] = [];
   const blocks = workspace.getBlocksByType('procedures_mutatorarg', false);
-  for (let i = 0, block; (block = blocks[i]); i++) {
+  for (let i = 0, block: Block; (block = blocks[i]); i++) {
     usedNames.push(block.getFieldValue('NAME'));
   }
 
@@ -506,12 +507,15 @@ export function getDefinition(
   return null;
 }
 
-export {
+export type {
   IParameterModel,
   IProcedureBlock,
   IProcedureMap,
   IProcedureModel,
+  ProcedureTuple
+};
+
+export {
   isProcedureBlock,
-  ObservableProcedureMap,
-  ProcedureTuple,
+  ObservableProcedureMap
 };

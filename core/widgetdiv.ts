@@ -7,7 +7,7 @@
 // Former goog.module ID: Blockly.WidgetDiv
 
 import * as common from './common.js';
-import {Field} from './field.js';
+import type {Field} from './field.js';
 import * as dom from './utils/dom.js';
 import type {Rect} from './utils/rect.js';
 import type {Size} from './utils/size.js';
@@ -94,7 +94,7 @@ export function show(
   if (!div) return;
   div.style.direction = rtl ? 'rtl' : 'ltr';
   div.style.display = 'block';
-  if (!workspace && newOwner instanceof Field) {
+  if (!workspace && isRepositionable(newOwner)) {
     // For backward compatibility with plugin fields that do not provide a
     // workspace to this function, attempt to derive it from the field.
     workspace = (newOwner as Field).getSourceBlock()?.workspace as WorkspaceSvg;

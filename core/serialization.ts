@@ -19,10 +19,13 @@ import * as variables from './serialization/variables.js';
 import * as workspaceComments from './serialization/workspace_comments.js';
 import * as workspaces from './serialization/workspaces.js';
 
+export type {
+  ISerializer
+};
+
 export {
   blocks,
   exceptions,
-  ISerializer,
   priorities,
   procedures,
   registry,
